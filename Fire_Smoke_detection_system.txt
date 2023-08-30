@@ -1,0 +1,35 @@
+                                                                   Fire_Smoke_detection_system
+
+
+const int flamePin = 2;
+const int gasPin = A0;
+const int buzzerPin = 3;
+
+void setup() {
+  pinMode(flamePin, INPUT);
+  pinMode(gasPin, INPUT);
+   pinMode(buzzerPin, OUTPUT);
+  
+   digitalWrite(buzzerPin, LOW);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flame = digitalRead(flamePin);
+  int gasValue = analogRead(gasPin);
+
+  if ( flame == LOW || gasValue > 200) {
+    Serial.println("Flame detected! Activating motor and buzzer...");
+     digitalWrite(buzzerPin, HIGH);
+    delay(1000);   
+ 
+     digitalWrite(buzzerPin, LOW);
+     delay(1000);
+  } else {
+    Serial.println("No flame and gas detected.");
+     digitalWrite(buzzerPin, LOW);
+  }
+
+  delay(1000);
+}
